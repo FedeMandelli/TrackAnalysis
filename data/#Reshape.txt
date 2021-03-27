@@ -1,0 +1,8 @@
+- main analysis tracks
+
+- heatmap normale e all
+    * gestire eventuali filtri
+
+- var graph normale e all
+
+- 3d plotter

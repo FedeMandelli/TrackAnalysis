@@ -1,0 +1,42 @@
+- max and min values
+    X max: 0.98
+    X min: -0.085
+    Y max: 1.61
+    Y min: -0.296
+    Z max: 1.194
+    Z min: -0.02
+
+- points under Z -0.02
+    under:      68,633
+    all points: 7,647,350
+    percentage: 0.8975%
+
+- analysis structure
+    experiments = [{'folder':'C:\\...',
+                   'csv':'C:\\...',
+                   'date':'2020_...',
+                   'tracks':[[1,2,3,...],[1,2,3,...],[1,2,3,...]],
+                   'general info':{tracks:0,removed,0,..},
+                   'analysis':[[track1info],[track2info],...]
+                   'mini-tracks':[[1,2,3,...],[1,2,3,...],[1,2,3,...]],
+                   },
+                   {...}]
+
+- heatmap:
+    spostare lo 0 nell'angolo per final map x paper
+    spiegare tutti filtri usati x atterraggio, x eliminare zanzare cazzute
+    fare il loop per fare tutte le analisi di notte, salvando le immagini
+
+- da fare
+    creare documentazione per programma
+    filtro landed or still prima della minitraccia
+-   var_graph per traccia singola
+
+- tracce 3D
+    disegnare rettangolo 3D nel grafico
+    label assi
+    tracce di colore diverso
+    scala fissa
+    controllare zoom
+
+- pandas implementation

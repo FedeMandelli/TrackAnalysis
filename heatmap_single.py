@@ -169,16 +169,16 @@ def main():
 
 """ ****** MODIFY UNDER HERE ****** """
 
-"""	* insert the path of the experiments
-    * chose the type of analysis to be performed
+"""	* chose the type of analysis to be performed
     * chose the size of the squares and if there should be the text inside the squares
-    * if necessary, adjust the area of the wind tunnel needed """
+    * insert the path of the experiments
+    * if necessary, adjust the area of the wind tunnel """
 
 # main settings
-path = 'C:\\manu\\Varie\\test'
 analysis_type = 'count'  # count - tortuosity - avg_time - tot_time - velocity - acceleration - ang_vel
 size = 0.1
 text_labels = True  # insert text labels in squares (True, False)
+path = 'C:\\manu\\Varie\\test'
 
 # XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 x_start = -0.1

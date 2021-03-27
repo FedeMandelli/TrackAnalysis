@@ -76,7 +76,7 @@ def main():
                     xy_values[i][j] = calc_avg_ang_vel(mini_tracks, min_track_len)
                 
                 # progress
-                prog = progress(prog, tot_squares, start_time)
+                prog = func.progress(prog, tot_squares, start_time)
         
         # loop through YZ boxes
         for i in range(z_size):
@@ -117,7 +117,7 @@ def main():
                     yz_values[i][j] = calc_avg_ang_vel(mini_tracks, min_track_len)
                 
                 # progress
-                prog = progress(prog, tot_squares, start_time)
+                prog = func.progress(prog, tot_squares, start_time)
         
         # loop through XZ boxes
         for i in range(z_size):
@@ -158,7 +158,7 @@ def main():
                     xz_values[i][j] = calc_avg_ang_vel(mini_tracks, min_track_len)
                 
                 # progress
-                prog = progress(prog, tot_squares, start_time)
+                prog = func.progress(prog, tot_squares, start_time)
         
         # generate heatmap and save plot
         print(f'creating {analysis} heatmap')

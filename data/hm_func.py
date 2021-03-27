@@ -198,30 +198,6 @@ def clean_outlers(xy, yz, xz, *args):
     return xy, yz, xz
 
 
-# progress of the analysis
-def progress(p, tsq, start):
-    # update count
-    p += 1
-    
-    # get time information
-    up_now = perf_counter() - start
-    for_exp = up_now / p
-    for_remaining = int(for_exp * (tsq - p))
-    
-    # format time information
-    if for_remaining >= 60:
-        time_left = f'{int(for_remaining // 60)}m{int((for_remaining - (for_remaining // 60 * 60)) % 60)}s'
-    else:
-        time_left = f'{for_remaining}s'
-    
-    # calc percentage and print
-    perc = f"{(p / tsq * 100):.2f}%"
-    print(f'{perc} - {p}\\{tsq} - time to end: {time_left}')
-    
-    # return
-    return p
-
-
 # calculate total time and format
 def time_format(start):
     tot_time = perf_counter() - start
@@ -348,7 +324,7 @@ def heatmap_all(val_xy, val_yz, val_xz, an_tp, txt_l, sz, x_sz, x_st, x_end, y_s
     ax.figure.colorbar(im_ax, ax=ax, orientation='horizontal')
     bx.figure.colorbar(im_bx, ax=bx, orientation='horizontal')
     cx.figure.colorbar(im_cx, ax=cx, orientation='horizontal')
-
+    
     # plot
     fig.suptitle(an_tp.capitalize(), size=36)
     ax.set_title('XY')

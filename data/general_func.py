@@ -392,13 +392,7 @@ def progress(p, tot_sz, start):
     return p
 
 
-'''
-*********************
-* Main Box Analysis *
-*********************
-'''
-
-
+# main box analysis
 def box_analysis(exp, box_in, box_out):
     # update general info e create analysis
     exp['general info']['mini-tracks'] = 0

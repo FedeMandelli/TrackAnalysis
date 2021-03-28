@@ -60,10 +60,10 @@ def plot_3d(an_tp):
 """ ****** MODIFY UNDER HERE ****** """
 
 """	* set what to plot in the 'to_analyze' list:
-        + if no argument all tracks will be plotted
+        + 'all' will plot all tracks will
         + 'landed' or 'not landed' will plot the full tracks, landed or not, in the box previously analyzed
         + 'minitracks' will plot all the mini-tracks in the box previously analyzed
-        + 'n. track' will plot a specific track
+        + n. track will plot a specific track or multiple numbers separated by comma
     * set the path of the json file with the tracks to plot
     * if necessary, adjust the area of the wind tunnel """
 

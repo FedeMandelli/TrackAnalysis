@@ -7,26 +7,30 @@ from matplotlib import pyplot as plt
 
 
 # plot tracks in 3D
-def plot_3d(info, *args):
+def plot_3d(an_tp):
+    # starting settings
+    info = json.load(open(file))
+    
     # select the list to plot
-    if not args:
+    if 'all' in an_tp:
         tracks = info['tracks']
     else:
-        if args[0] == 'landed':
+        if 'landed' in an_tp:
             tracks = info['landed']
-        elif args[0] == 'not landed':
+        elif 'not landed' in an_tp:
             tracks = info['not landed']
-        elif args[0] == 'mini-tracks':
+        elif 'minitracks' in an_tp:
             tracks = info['mini-tracks']
         else:
             tracks = []
             for track in info['tracks']:
-                if track[0]['object'] in args:
+                if track[0]['object'] in an_tp:
                     tracks.append(track)
     
     # plot
     fig = plt.figure()
-    ax = Axes3D(fig)
+    ax = Axes3D(fig, auto_add_to_figure=False)
+    fig.add_axes(ax)
     
     # get points and create tracks
     for track in tracks:
@@ -41,13 +45,6 @@ def plot_3d(info, *args):
         ax.plot3D(x, y, z)
         ax.text(point['X'], point['Y'], point['Z'], point['object'])
     
-    # plot box
-    xv = [-0.04, 0.44]
-    yv = [0.83, 1.45]
-    zv = [-0.02, 0.2]
-    
-    # box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
-    
     # plot settings
     ax.set_xlim3d(x_start, x_end)
     ax.set_ylim3d(y_start, y_end)
@@ -60,19 +57,21 @@ def plot_3d(info, *args):
     return
 
 
-"""
-********
-* Main *
-********
-"""
+""" ****** MODIFY UNDER HERE ****** """
 
-# set path
-file = "C:\\manu\\Varie\\test\\land_or_not_large1.json"
+"""	* set what to plot in the 'to_analyze' list:
+        + if no argument all tracks will be plotted
+        + 'landed' or 'not landed' will plot the full tracks, landed or not, in the box previously analyzed
+        + 'minitracks' will plot all the mini-tracks in the box previously analyzed
+        + 'n. track' will plot a specific track
+    * set the path of the json file with the tracks to plot
+    * if necessary, adjust the area of the wind tunnel """
 
-# get tracks
-new_data = json.load(open(file))
+# main settings
+to_analyze = ['all']  # all - minitracks - landed - not landed - n.track
+file = "C:\\manu\\Varie\\test\\2020_07_27_15_10_09 -exp 14 big vs big\\Py_Analysis_large1\\2020_07_27_15_10_09_land_or_not.json"
 
-# XYZ settings - default: X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
+# XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 size = 0.1
 x_start = -0.1
 x_end = 1
@@ -80,9 +79,7 @@ y_start = -0.3
 y_end = 1.7
 z_start = -0.1
 z_end = 1.2
-x_size = int((x_end - x_start) / size)
-y_size = int((y_end - y_start) / size)
-z_size = int((z_end - z_start) / size)
 
-# se nessun argomento vengono plottate tutte le tracce, se no a scelta tra (mini-tracks, landed, not landed, n.track)
-plot_3d(new_data, 'not landed')
+""" ****** LAUNCH PROGRAM ****** """
+if __name__ == '__main__':
+    plot_3d(to_analyze)

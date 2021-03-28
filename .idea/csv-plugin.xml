@@ -150,6 +150,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\tracks_analysis.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\unfiltered_check.py">
           <value>
             <Attribute>

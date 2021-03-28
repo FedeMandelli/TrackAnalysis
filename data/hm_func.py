@@ -4,7 +4,6 @@
 import data.general_func as func
 import numpy as np
 import matplotlib.pyplot as plt
-from time import perf_counter
 import os
 
 
@@ -196,16 +195,6 @@ def clean_outlers(xy, yz, xz, *args):
                     xz[i][j] = np.nan
     
     return xy, yz, xz
-
-
-# calculate total time and format
-def time_format(start):
-    tot_time = perf_counter() - start
-    tot_time_h = int(tot_time // 3600) if tot_time >= 3600 else 0
-    tot_time_m = int((tot_time - (tot_time_h * 3600)) // 60) if tot_time >= 60 else 0
-    tot_time_s = int(tot_time - (tot_time_h * 3600) - (tot_time_m * 60))
-    time_stamp = f'{tot_time_h}h {tot_time_m}m {tot_time_s}s'
-    return time_stamp
 
 
 # create three heatmaps in XY, YZ ad XZ

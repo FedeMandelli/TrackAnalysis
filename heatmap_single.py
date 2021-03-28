@@ -2,6 +2,7 @@
 
 # imports
 from data.hm_func import *
+from time import perf_counter
 
 
 # main
@@ -158,7 +159,7 @@ def main():
             prog = func.progress(prog, tot_squares, start_time)
     
     # print total time
-    print(f'Total Time: {time_format(start_time)}')
+    print(f'Total Time: {func.time_format(start_time)}')
     
     # generate heatmap
     heatmap_single(xy_values, yz_values, xz_values, analysis_type, text_labels, size, x_size, x_start, x_end, y_size,

@@ -358,6 +358,16 @@ def land_not(exp):
     return
 
 
+# calculate time and format
+def time_format(start):
+    tot_time = perf_counter() - start
+    tot_time_h = int(tot_time // 3600) if tot_time >= 3600 else 0
+    tot_time_m = int((tot_time - (tot_time_h * 3600)) // 60) if tot_time >= 60 else 0
+    tot_time_s = int(tot_time - (tot_time_h * 3600) - (tot_time_m * 60))
+    time_stamp = f'{tot_time_h}h {tot_time_m}m {tot_time_s}s'
+    return time_stamp
+
+
 # progress of the analysis
 def progress(p, tot_sz, start):
     # update count

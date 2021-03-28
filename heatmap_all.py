@@ -2,6 +2,7 @@
 
 # imports
 from data.hm_func import *
+from time import perf_counter
 
 
 # main
@@ -166,7 +167,7 @@ def main():
                     y_start, y_end, z_size, z_start, z_end, path)
     
     # print total time
-    print(f'Total Time: {time_format(start_time)}')
+    print(f'Total Time: {func.time_format(start_time)}')
     
     return
 

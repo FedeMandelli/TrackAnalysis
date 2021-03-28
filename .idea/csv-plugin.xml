@@ -171,6 +171,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\var_graph_single.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

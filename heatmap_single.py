@@ -1,7 +1,7 @@
 """ HEATMAP SINGLE """
 
 # imports
-from data.hm_func import *
+from data.plot_func import *
 from time import perf_counter
 
 

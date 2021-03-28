@@ -1,4 +1,4 @@
-""" heatmap functions"""
+""" plot functions"""
 
 # imports
 import data.general_func as func
@@ -324,6 +324,76 @@ def heatmap_all(val_xy, val_yz, val_xz, an_tp, txt_l, sz, x_sz, x_st, x_end, y_s
     # save plot
     fig.set_size_inches(32, 18)
     save_path = os.path.join(p, f'heatmaps_{sz * 100}cm')
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+    plt.savefig(f'{save_path}\\{an_tp}.jpg', dpi=300)
+
+
+# plotting function
+def plot_xyz_single(vx, vy, vz, an_tp, sz, x_sz, x_st, x_end, y_sz, y_st, y_end, z_sz, z_st, z_end):
+    # creating subplots
+    fig, (ax, bx, cx) = plt.subplots(1, 3, sharey='row')
+    
+    # X plot
+    ax.plot(vx)
+    ax.set_title('X')
+    ax.set_xticks(np.arange(x_sz))
+    ax.set_xticklabels(f'{i:.1f}' for i in np.arange(x_st, x_end, sz))
+    ax.xaxis.grid()
+    
+    # Y plot
+    bx.plot(vy)
+    bx.set_title('Y')
+    bx.set_xticks(np.arange(y_sz))
+    bx.set_xticklabels(f'{i:.1f}' for i in np.arange(y_st, y_end, sz))
+    bx.xaxis.grid()
+    
+    # Z plot
+    cx.plot(vz)
+    cx.set_title('Z')
+    cx.set_xticks(np.arange(z_sz))
+    cx.set_xticklabels(f'{i:.1f}' for i in np.arange(z_st, z_end, sz))
+    cx.xaxis.grid()
+    
+    # plotting
+    fig.suptitle(an_tp.capitalize())
+    plt.tight_layout()
+    plt.show()
+
+
+# plotting function
+def plot_xyz_all(vx, vy, vz, an_tp, sz, x_sz, x_st, x_end, y_sz, y_st, y_end, z_sz, z_st, z_end, p):
+    # creating subplots
+    fig, (ax, bx, cx) = plt.subplots(1, 3, sharey='row')
+    ax.plot(vx)
+    bx.plot(vy)
+    cx.plot(vz)
+    
+    # X plot
+    ax.set_xticks(np.arange(x_sz))
+    ax.set_xticklabels(f'{i:.1f}' for i in np.arange(x_st, x_end, sz))
+    ax.xaxis.grid()
+    
+    # Y plot
+    bx.set_xticks(np.arange(y_sz))
+    bx.set_xticklabels(f'{i:.1f}' for i in np.arange(y_st, y_end, sz))
+    bx.xaxis.grid()
+    
+    # Z plot
+    cx.set_xticks(np.arange(z_sz))
+    cx.set_xticklabels(f'{i:.1f}' for i in np.arange(z_st, z_end, sz))
+    cx.xaxis.grid()
+    
+    # plotting
+    fig.suptitle(an_tp.capitalize(), size=36)
+    ax.set_title('X')
+    bx.set_title('Y')
+    cx.set_title('Z')
+    plt.tight_layout()
+    
+    # save plot
+    fig.set_size_inches(32, 18)
+    save_path = os.path.join(p, 'variables_graphs')
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     plt.savefig(f'{save_path}\\{an_tp}.jpg', dpi=300)

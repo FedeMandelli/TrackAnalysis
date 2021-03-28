@@ -45,6 +45,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\data\test_files\quick_test_pandas.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\test_files\test_Splined.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\data\unfiltered_check.py">
           <value>
             <Attribute>

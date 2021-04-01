@@ -27,6 +27,9 @@
     spiegare tutti filtri usati x atterraggio, x eliminare zanzare cazzute
     fare il loop per fare tutte le analisi di notte, salvando le immagini
 
+- filtro zanzare ferme in analisi generali
+- filtro zanzare che si muovono meno di 1 cm3 (?)
+
 - da fare
     creare documentazione per programma
     filtro landed or still prima della minitraccia
@@ -38,5 +41,6 @@
     tracce di colore diverso
     scala fissa
     controllare zoom
+    legenda
 
 - pandas implementation

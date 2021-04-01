@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\#tracks_analysis.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\3d_plotter.py">
           <value>
             <Attribute>

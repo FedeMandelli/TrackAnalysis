@@ -15,14 +15,12 @@ def get_tracks(file):
         # check total points
         if len(track) <= 25:
             return False
-        
         # check total time
         start = tr[0]['time']
         end = tr[-1]['time']
         diff = end - start
         if diff <= 0.5:
             return False
-        
         return True
     
     # read file and create a dictionary
@@ -30,17 +28,17 @@ def get_tracks(file):
     csv_dict = csv.DictReader(csv_file, delimiter=';')
     
     # create objects list
-    obj = []
+    base = []
     count = 1
     for pos in csv_dict:
         # if the position is the first of a new track, create a list for the track and increase the count
         if int(pos['object']) == count:
-            obj.append([])
+            base.append([])
             count += 1
-        obj[count - 2].append(pos)
+        base[count - 2].append(pos)
     
     # clear NaN points, rename XYZ columns, removed useless columns and converting values for easier coding
-    for track in obj:
+    for track in base:
         to_remove = []
         for point in track:
             if point['time'] != 'NaN':
@@ -59,22 +57,25 @@ def get_tracks(file):
     
     # clean useless tracks
     removed = []
-    for track in obj:
+    valid_tracks = []
+    for track in base:
         if not usable(track):
             removed.append(str(track[0]['object']))
-            obj.remove(track)
+        else:
+            valid_tracks.append(track)
+    
     if len(removed) > 0:
         r_info = ', '.join(removed)
     else:
         r_info = 'None'
     
     # general info
-    total = int(obj[len(obj) - 1][0]['object'])
-    valid_t = len(obj)
-    removed = total - valid_t
-    general = {'total': total, 'valid': valid_t, 'removed': removed, 'tracks removed (n.)': r_info}
+    info = {'total': len(base),
+            'valid': len(valid_tracks),
+            'removed': len(removed),
+            'tracks removed (n.)': r_info}
     
-    return obj, general
+    return valid_tracks, info
 
 
 # check if a point is in a box or not

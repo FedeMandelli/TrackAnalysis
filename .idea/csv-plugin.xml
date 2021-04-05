@@ -59,6 +59,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\data\small_tasks\splined_recap.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\data\test_files\quick_test_pandas.py">
           <value>
             <Attribute>

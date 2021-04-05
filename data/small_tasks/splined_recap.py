@@ -17,16 +17,10 @@ def main():
         
         # get points and create tracks
         for track in still_points:
-            ax.plot3D(x, y, z)
-            ax.text(point['X'], point['Y'], point['Z'], point['object'])
+            for n, points in track.groupby('object'):
+                ax.plot3D(points['X'], points['Y'], points['Z'])
         
-        # plot settings
-        ax.set_xlim3d(x_start, x_end)
-        ax.set_ylim3d(y_start, y_end)
-        ax.set_zlim3d(z_start, z_end)
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
+        # plot
         plt.show()
     
     # create info dataframe
@@ -56,7 +50,7 @@ def main():
                     still = 'yes' if all(p < 0.01 for p in [x_move, y_move, z_move]) else 'no'
                     
                     # append to the still points list
-                    if still == 'no':
+                    if still == 'yes':
                         still_points.append(track_data)
                     
                     # append to info dataframe
@@ -77,7 +71,7 @@ def main():
 
 
 """ ****** MODIFY UNDER HERE ****** """
-path = 'C:/manu/Varie/test'
+path = 'C:/manu/Varie/postproc tracks'
 
 """ ****** LAUNCH PROGRAM ****** """
 if __name__ == '__main__':

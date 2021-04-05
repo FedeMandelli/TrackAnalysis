@@ -17,8 +17,8 @@ def main():
         
         # get points and create tracks
         for track in still_points:
-            for n, points in track.groupby('object'):
-                ax.plot3D(points['X'], points['Y'], points['Z'])
+            for n, p in track.groupby('object'):
+                ax.plot3D(p['X'], p['Y'], p['Z'])
         
         # plot
         plt.show()

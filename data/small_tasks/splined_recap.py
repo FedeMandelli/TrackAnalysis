@@ -27,6 +27,7 @@ def main():
     info_df = pd.DataFrame()
     still_points = []
     
+    # search for Splined.csv
     for root, dirs, files in os.walk(path):
         for name in files:
             if name.endswith('Splined.csv'):
@@ -61,7 +62,8 @@ def main():
                                               'x move': x_move,
                                               'y move': y_move,
                                               'z move': z_move,
-                                              'still': still}, ignore_index=True)
+                                              'still': still},
+                                             ignore_index=True)
     
     # export info
     # info_df.to_excel(os.path.join(path, 'tracks_recap.xlsx'), index=False)

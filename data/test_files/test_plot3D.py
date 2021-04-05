@@ -3,6 +3,7 @@
 # imports
 import numpy as np
 import pandas as pd
+from itertools import product
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from matplotlib import pyplot as plt
@@ -28,24 +29,18 @@ def main():
     # for n, p in grouped_df:
     #     ax.plot3D(p['X'], p['Y'], p['Z'])
     
-    # create rectangular box
-    p = np.array([[0.2, 0, 0],
-                  [0.2, 0.5, 0],
-                  [0.4, 0.5, 0],
-                  [0.4, 0, 0],
-                  [0.2, 0, 0.2],
-                  [0.2, 0.5, 0.2],
-                  [0.4, 0.5, 0.2],
-                  [0.4, 0, 0.2]])
-    
-    rectangle = [[p[0], p[1], p[2], p[3]],
-                 [p[4], p[5], p[6], p[7]],
-                 [p[0], p[4], p[7], p[3]],
-                 [p[1], p[5], p[6], p[2]],
-                 [p[0], p[4], p[5], p[1]],
-                 [p[3], p[7], p[6], p[2]]]
-    
-    ax.add_collection3d(Poly3DCollection(rectangle, facecolors='cyan', linewidths=0.2, edgecolors='cyan', alpha=0.1))
+    # create areas
+    if boxes:
+        for box in boxes:
+            p = np.array(list(product(box[0], box[1], box[2])))
+            rectangle = [[p[0], p[2], p[6], p[4]],
+                         [p[1], p[3], p[7], p[5]],
+                         [p[0], p[2], p[3], p[1]],
+                         [p[4], p[5], p[7], p[6]],
+                         [p[0], p[1], p[5], p[4]],
+                         [p[2], p[3], p[7], p[6]]]
+            ax.add_collection3d(
+                Poly3DCollection(rectangle, facecolors='cyan', linewidths=0.2, edgecolors='cyan', alpha=0.1))
     
     # plot settings
     ax.set_xlim3d(x_start, x_end)
@@ -60,6 +55,11 @@ def main():
 """ ====== MODIFY HERE ====== """
 # path
 path = 'test_Splined.csv'
+
+# boxes
+box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
+box_large2 = (0.44, 0.95), (0.83, 1.45), (-0.02, 0.2)
+boxes = [box_large1]
 
 # XYZ settings - default: X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 size = 0.1

@@ -85,13 +85,13 @@ def plot_3d(an_tp):
     * if necessary, adjust the area of the wind tunnel """
 
 # main settings
-to_analyze = ['minitracks']  # all - minitracks - landed - not landed - n.track
-file = "C:\\manu\\Varie\\test\\2020_08_03_17_08_07 - exp 44 big vs big\\Py_Analysis_large1\\2020_08_03_17_08_07_land_or_not.json"
+to_analyze = [7]  # all - minitracks - landed - not landed - n.track
+file = "C:/manu/test/2020_07_27_14_21_03 - exp 13 small vs small/Py_Analysis_large1/2020_07_27_14_21_03_land_or_not.json"
 
 # boxes
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
 box_large2 = (0.44, 0.95), (0.83, 1.45), (-0.02, 0.2)
-boxes = [box_large1]
+boxes = []
 
 # XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 size = 0.1

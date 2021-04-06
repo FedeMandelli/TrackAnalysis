@@ -135,7 +135,7 @@ box_out = box_fake
 box_name = 'large1'  # box name is the name of the file created after the analysis
 
 # path
-path = 'C:\\manu\\Varie\\test'
+path = 'C:/manu/test'
 
 """" ****** LAUNCH PROGRAM ****** """
 if __name__ == '__main__':

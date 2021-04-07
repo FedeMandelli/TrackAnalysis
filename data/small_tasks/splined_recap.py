@@ -23,15 +23,22 @@ def main():
         # plot
         plt.show()
     
-    # create info dataframe
-    info_df = pd.DataFrame()
-    still_points = []
+    # create tracks info dataframe
+    tracks_info_cols = ['experiment', 'num track', 'points', 'tot time', 'still', 'x move', 'y move', 'z move']
+    tracks_info_df = pd.DataFrame(columns=tracks_info_cols)
     
-    # search for Splined.csv
+    # create experiment info dataframe
+    exp_info_cols = ['experiment', 'tot tracks', 'still tracks', 'tot points', 'tot time normal', 'tot time sum']
+    exp_info_df = pd.DataFrame(columns=exp_info_cols)
+    
+    # search and analyze Splined.csv
     for root, dirs, files in os.walk(path):
         for name in files:
             if name.endswith('Splined.csv'):
+                # basic info
                 folder = root.split(os.path.sep)[-1]
+                still_points = []
+                time_exp = 0
                 
                 # create dataframe with all tracks, reformat and grouped dataframe
                 base_df = pd.read_csv(os.path.join(root, name), sep=';')
@@ -45,35 +52,49 @@ def main():
                     # get track information
                     points = track_data['object'].count()
                     tot_time = track_data['time'].max() - track_data['time'].min()
+                    time_exp += tot_time
                     x_move = track_data['X'].max() - track_data['X'].min()
                     y_move = track_data['Y'].max() - track_data['Y'].min()
                     z_move = track_data['Z'].max() - track_data['Z'].min()
-                    still = 'yes' if all(p < 0.01 for p in [x_move, y_move, z_move]) else 'no'
+                    still = 'yes' if all(p < min_still for p in [x_move, y_move, z_move]) else 'no'
                     
                     # append to the still points list
                     if still == 'yes':
                         still_points.append(track_data)
                     
-                    # append to info dataframe
-                    info_df = info_df.append({'folder': folder,
-                                              'num track': n_track,
-                                              'points': points,
-                                              'tot time': tot_time,
-                                              'x move': x_move,
-                                              'y move': y_move,
-                                              'z move': z_move,
-                                              'still': still},
-                                             ignore_index=True)
+                    # append to tracks info dataframe
+                    tracks_info_df = tracks_info_df.append({'experiment': folder,
+                                                            'num track': n_track,
+                                                            'points': points,
+                                                            'tot time': tot_time,
+                                                            'x move': x_move,
+                                                            'y move': y_move,
+                                                            'z move': z_move,
+                                                            'still': still},
+                                                           ignore_index=True)
+                
+                # append to experiment info dataframe
+                exp_info_df = exp_info_df.append({'experiment': folder,
+                                                  'tot tracks': len(grouped_df),
+                                                  'still tracks': len(still_points),
+                                                  'tot points': len(base_df),
+                                                  'tot time normal': base_df['time'].max() - base_df['time'].min(),
+                                                  'tot time sum': time_exp},
+                                                 ignore_index=True)
     
     # export info
-    # info_df.to_excel(os.path.join(path, 'tracks_recap.xlsx'), index=False)
+    excel_writer = pd.ExcelWriter(os.path.join(path, 'tracks_recap.xlsx'), engine='xlsxwriter')
+    tracks_info_df.to_excel(excel_writer, sheet_name='Tracks', index=False)
+    exp_info_df.to_excel(excel_writer, sheet_name='Experiments', index=False)
+    excel_writer.save()
     
     # plot points
-    plot_still_points()
+    # plot_still_points()
 
 
 """ ****** MODIFY UNDER HERE ****** """
-path = 'C:/manu/Varie/postproc tracks'
+path = 'C:/manu/postproc tracks'
+min_still = 0.01
 
 """ ****** LAUNCH PROGRAM ****** """
 if __name__ == '__main__':

@@ -3,6 +3,7 @@
 # imports
 import os
 import pandas as pd
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import pyplot as plt
 
@@ -24,9 +25,15 @@ def main():
         # plot
         plt.show()
     
+    def plot_dist():
+        plt.hist(all_dist, range=(0, 0.1), bins=20)
+        plt.xticks(np.arange(0, 0.1, 0.005))
+        plt.show()
+    
     # create tracks info dataframe
     tracks_info_cols = ['experiment', 'num track', 'points', 'tot time', 'still', 'x move', 'y move', 'z move']
     tracks_info_df = pd.DataFrame(columns=tracks_info_cols)
+    all_dist = []
     
     # create experiment info dataframe
     exp_info_cols = ['experiment', 'total', 'still', 'normal', 'points', 'time normal', 'time sum']
@@ -57,6 +64,7 @@ def main():
                     x_move = track_data['X'].max() - track_data['X'].min()
                     y_move = track_data['Y'].max() - track_data['Y'].min()
                     z_move = track_data['Z'].max() - track_data['Z'].min()
+                    all_dist.append(max(x_move, y_move, z_move))
                     still = 'yes' if all(p < min_still for p in [x_move, y_move, z_move]) else 'no'
                     
                     # append to the still points list
@@ -90,12 +98,15 @@ def main():
     exp_info_df.to_excel(excel_writer, sheet_name='Experiments', index=False)
     excel_writer.save()
     
-    # plot points
+    # # plot points
     # plot_still_points()
+    
+    # # plot histogram
+    plot_dist()
 
 
 """ ====== MODIFY UNDER HERE ====== """
-path = 'C:/manu/test'
+path = 'C:/manu/postproc tracks'
 min_still = 0.01
 
 """ ====== LAUNCH PROGRAM ====== """

@@ -45,7 +45,7 @@ def plot_3d(an_tp):
             x.append(point['X'])
             y.append(point['Y'])
             z.append(point['Z'])
-        ax.plot3D(x, y, z)
+        ax.plot3D(x, y, z, label=point['object'])
         ax.text(point['X'], point['Y'], point['Z'], point['object'])
     
     # create boxes areas
@@ -68,6 +68,7 @@ def plot_3d(an_tp):
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
+    ax.legend()
     plt.show()
     
     return
@@ -85,8 +86,8 @@ def plot_3d(an_tp):
     * if necessary, adjust the area of the wind tunnel """
 
 # main settings
-to_analyze = [7]  # all - minitracks - landed - not landed - n.track
-file = "C:/manu/test/2020_07_27_14_21_03 - exp 13 small vs small/Py_Analysis_large1/2020_07_27_14_21_03_land_or_not.json"
+to_analyze = ['all']  # all - minitracks - landed - not landed - n.track
+file = 'C:/manu/test/2020_07_27_15_10_09 -exp 14 big vs big/Py_Analysis_large1/2020_07_27_15_10_09_land_or_not.json'
 
 # boxes
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)

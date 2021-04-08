@@ -10,6 +10,12 @@ from matplotlib import pyplot as plt
 
 # main function
 def main():
+    def export_excel():
+        excel_writer = pd.ExcelWriter(os.path.join(path, 'tracks_recap.xlsx'), engine='xlsxwriter')
+        tracks_info_df.to_excel(excel_writer, sheet_name='Tracks', index=False)
+        exp_info_df.to_excel(excel_writer, sheet_name='Experiments', index=False)
+        excel_writer.save()
+    
     def plot_still_points():
         # plot
         fig = plt.figure()
@@ -26,8 +32,8 @@ def main():
         plt.show()
     
     def plot_dist():
-        plt.hist(all_dist, range=(0, 0.1), bins=20)
-        plt.xticks(np.arange(0, 0.1, 0.005))
+        plt.hist(all_dist, range=(0, 0.5), bins=100)
+        plt.xticks(np.arange(0, 0.5, 0.005))
         plt.show()
     
     # create tracks info dataframe
@@ -92,21 +98,18 @@ def main():
                                                   'time sum': time_exp},
                                                  ignore_index=True)
     
-    # export info
-    excel_writer = pd.ExcelWriter(os.path.join(path, 'tracks_recap.xlsx'), engine='xlsxwriter')
-    tracks_info_df.to_excel(excel_writer, sheet_name='Tracks', index=False)
-    exp_info_df.to_excel(excel_writer, sheet_name='Experiments', index=False)
-    excel_writer.save()
+    # export info to excel
+    export_excel()
     
-    # # plot points
+    # # 3D plot points under min_still
     # plot_still_points()
     
-    # # plot histogram
-    plot_dist()
+    # # plot histogram distances
+    # plot_dist()
 
 
 """ ====== MODIFY UNDER HERE ====== """
-path = 'C:/manu/postproc tracks'
+path = 'C:/manu/test'
 min_still = 0.01
 
 """ ====== LAUNCH PROGRAM ====== """

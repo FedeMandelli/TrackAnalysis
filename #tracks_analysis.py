@@ -10,12 +10,7 @@ from shutil import copy
 
 # main function
 def main():
-    """
-    ************
-    * Analysis *
-    ************
-    """
-    
+    """ === Analysis === """
     # create a list of all the experiments with the information stored as dictionary
     experiments = []
     for root, dirs, files in os.walk(path):
@@ -56,12 +51,7 @@ def main():
         # analysis
         func.box_analysis(exp, box_in, box_out)
     
-    """
-    **********
-    * Export *
-    **********
-    """
-    
+    """ === Export === """
     # create merged json for landed and not landed
     data = {'mini-tracks': [], 'landed': [], 'not landed': []}
     
@@ -102,16 +92,17 @@ def main():
         writer.writerow(exp['general info'])
 
 
-""" ****** MODIFY UNDER HERE ****** """
+""" ====== MODIFY UNDER HERE ====== """
 
 """ * create boxes (areas) where I want to analyse tracks
-    * in box used there are the boxes used for the analysis:
-        + box_in is the box looked at (where I want to analyse)
-        + box_out is the exclusion area
-    * note: box fake is if I don't want to exclude anything. Box fake is an area outside tunnel
-    * note: box all is the whole wind tunnel
+    * in the section "box used" there are the boxes used for the analysis:
+        + "box_in" is the box looked at (where I want to analyse)
+        + "box_out" is the exclusion area
+    * note:
+        + "box_fake" is if I don't want to exclude anything. "box_fake" is an area outside the wind tunnel
+        + "box_all" is the whole wind tunnel
     * insert the name of the box for the description of the analysis. This will be the name of the folder
-    * insert path where the file to analyze are """
+    * insert the path where the files to analyze are """
 
 # boxes definitions
 box_fake = (0, 0), (0, 0), (-1, -1)
@@ -132,11 +123,11 @@ box_vertical2 = (0.44, 0.95), (1.13, 1.38), (-0.02, 0.6)
 # boxes used
 box_in = box_large1
 box_out = box_fake
-box_name = 'large1'  # box name is the name of the file created after the analysis
+box_name = 'large1'  # name of the file created after the analysis
 
 # path
 path = 'C:/manu/test'
 
-"""" ****** LAUNCH PROGRAM ****** """
+"""" ====== LAUNCH PROGRAM ====== """
 if __name__ == '__main__':
     main()

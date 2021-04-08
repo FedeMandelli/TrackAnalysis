@@ -172,7 +172,7 @@ def main():
     return
 
 
-""" ****** MODIFY UNDER HERE ****** """
+""" ====== MODIFY UNDER HERE ====== """
 
 """	* chose the size of the squares and if there should be the text inside the squares
     * insert the path of the experiments
@@ -182,7 +182,7 @@ def main():
 analysis_type = ['count', 'tortuosity', 'tot_time', 'avg_time', 'velocity', 'acceleration', 'ang_vel']
 size = 0.1
 text_labels = True  # insert text labels in squares (True, False)
-path = 'C:\\manu\\Varie\\test'
+path = 'C:/manu/test'
 
 # XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 x_start = -0.1
@@ -192,6 +192,6 @@ y_end = 1.7
 z_start = -0.1
 z_end = 1.2
 
-""" ****** LAUNCH PROGRAM ****** """
+""" ====== LAUNCH PROGRAM ====== """
 if __name__ == '__main__':
     main()

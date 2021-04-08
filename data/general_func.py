@@ -15,12 +15,28 @@ def get_tracks(file):
         # check total points
         if len(track) <= 25:
             return False
+        
         # check total time
         start = tr[0]['time']
         end = tr[-1]['time']
         diff = end - start
         if diff <= 0.5:
             return False
+        
+        # check if all points in 1cm
+        x_all = []
+        y_all = []
+        z_all = []
+        for p in track:
+            x_all.append(p['X'])
+            y_all.append(p['Y'])
+            z_all.append(p['Z'])
+        x_move = max(x_all) - min(x_all)
+        y_move = max(y_all) - min(y_all)
+        z_move = max(z_all) - min(z_all)
+        if max(x_move, y_move, z_move) <= 0.01:
+            return False
+        
         return True
     
     # read file and create a dictionary

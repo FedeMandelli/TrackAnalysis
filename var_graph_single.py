@@ -170,7 +170,7 @@ def main():
     return
 
 
-""" ****** MODIFY UNDER HERE ****** """
+""" ====== MODIFY UNDER HERE ====== """
 
 """	* chose the type of analysis to be performed
     * chose the size of the bin
@@ -190,7 +190,7 @@ size = 0.1
 # path settings
 splined = True
 if splined:
-    path = 'C:\\manu\\Varie\\test'
+    path = 'C:/manu/Varie/test'
 else:
     track_type = 'landed'  # type of track (landed, not landed, mini-tracks)
     path_1 = "C:\\manu\\Varie\\test\\land_or_not_large1.json"
@@ -206,6 +206,6 @@ y_end = 1.7
 z_start = -0.1
 z_end = 1.2
 
-""" ****** LAUNCH PROGRAM ****** """
+""" ====== LAUNCH PROGRAM ====== """
 if __name__ == '__main__':
     main()

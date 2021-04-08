@@ -173,7 +173,7 @@ def main():
     return
 
 
-""" ****** MODIFY UNDER HERE ****** """
+""" ====== MODIFY UNDER HERE ====== """
 
 """ * chose the size of the bin
     * check if working on the Splined file or json
@@ -193,7 +193,7 @@ size = 0.1
 # path settings
 splined = True
 if splined:
-    path = 'C:\\manu\\Varie\\test'
+    path = 'C:/manu/Varie/test'
 else:
     track_type = 'landed'  # type of track (landed, not landed, mini-tracks)
     path = 'C:\\manu\\Varie\\test'  # path where the folder with graphs will be created
@@ -210,6 +210,6 @@ y_end = 1.7
 z_start = -0.1
 z_end = 1.2
 
-""" ****** LAUNCH PROGRAM ****** """
+""" ====== LAUNCH PROGRAM ====== """
 if __name__ == '__main__':
     main()

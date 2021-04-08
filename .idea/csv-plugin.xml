@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\data\general_func.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\data\perc_under_z0.02.py">
           <value>
             <Attribute>

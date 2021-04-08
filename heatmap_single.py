@@ -168,7 +168,7 @@ def main():
     return
 
 
-""" ****** MODIFY UNDER HERE ****** """
+""" ====== MODIFY UNDER HERE ====== """
 
 """	* chose the type of analysis to be performed
     * chose the size of the squares and if there should be the text inside the squares
@@ -189,6 +189,6 @@ y_end = 1.7
 z_start = -0.1
 z_end = 1.2
 
-""" ****** LAUNCH PROGRAM ****** """
+""" ====== LAUNCH PROGRAM ====== """
 if __name__ == '__main__':
     main()

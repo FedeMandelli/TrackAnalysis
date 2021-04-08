@@ -7,10 +7,14 @@ from itertools import product
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from matplotlib.widgets import TextBox
 
 
 # plot tracks in 3D
 def plot_3d(an_tp):
+    def submit(exp):
+        print(exp.split())
+    
     # starting settings
     info = json.load(open(file))
     
@@ -61,6 +65,11 @@ def plot_3d(an_tp):
             ax.add_collection3d(
                     Poly3DCollection(rectangle, facecolors='cyan', linewidths=0.1, edgecolors='cyan', alpha=0.05))
     
+    # textbox
+    axbox = fig.add_axes([0, 0, 1, 0.04])
+    text_box = TextBox(axbox, 'Box')
+    text_box.on_submit(submit)
+    
     # plot settings
     ax.set_xlim3d(x_start, x_end)
     ax.set_ylim3d(y_start, y_end)
@@ -86,8 +95,8 @@ def plot_3d(an_tp):
     * if necessary, adjust the area of the wind tunnel """
 
 # main settings
-to_analyze = ['all']  # all - minitracks - landed - not landed - n.track
-file = 'C:/manu/test/2020_07_27_15_10_09 -exp 14 big vs big/Py_Analysis_large1/2020_07_27_15_10_09_land_or_not.json'
+to_analyze = [107]  # all - minitracks - landed - not landed - n.track
+file = "C:/manu/test/2020_07_27_14_21_03 - exp 13 small vs small/Py_Analysis_large1/2020_07_27_14_21_03_land_or_not.json"
 
 # boxes
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)

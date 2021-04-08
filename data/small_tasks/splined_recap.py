@@ -18,7 +18,8 @@ def main():
         # get points and create tracks
         for track in still_points:
             for n, p in track.groupby('object'):
-                ax.plot3D(p['X'], p['Y'], p['Z'])
+                ax.plot3D(p['X'], p['Y'], p['Z'], label=n)
+                ax.legend()
         
         # plot
         plt.show()
@@ -93,10 +94,10 @@ def main():
     # plot_still_points()
 
 
-""" ****** MODIFY UNDER HERE ****** """
+""" ====== MODIFY UNDER HERE ====== """
 path = 'C:/manu/test'
 min_still = 0.01
 
-""" ****** LAUNCH PROGRAM ****** """
+""" ====== LAUNCH PROGRAM ====== """
 if __name__ == '__main__':
     main()

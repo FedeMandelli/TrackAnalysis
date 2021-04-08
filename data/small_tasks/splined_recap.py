@@ -28,7 +28,7 @@ def main():
     tracks_info_df = pd.DataFrame(columns=tracks_info_cols)
     
     # create experiment info dataframe
-    exp_info_cols = ['experiment', 'tot tracks', 'still tracks', 'tot points', 'tot time normal', 'tot time sum']
+    exp_info_cols = ['experiment', 'total', 'still', 'normal', 'points', 'time normal', 'time sum']
     exp_info_df = pd.DataFrame(columns=exp_info_cols)
     
     # search and analyze Splined.csv
@@ -75,11 +75,12 @@ def main():
                 
                 # append to experiment info dataframe
                 exp_info_df = exp_info_df.append({'experiment': folder,
-                                                  'tot tracks': len(grouped_df),
-                                                  'still tracks': len(still_points),
-                                                  'tot points': len(base_df),
-                                                  'tot time normal': base_df['time'].max() - base_df['time'].min(),
-                                                  'tot time sum': time_exp},
+                                                  'total': len(grouped_df),
+                                                  'still': len(still_points),
+                                                  'normal': len(grouped_df) - len(still_points),
+                                                  'points': len(base_df),
+                                                  'time normal': base_df['time'].max() - base_df['time'].min(),
+                                                  'time sum': time_exp},
                                                  ignore_index=True)
     
     # export info
@@ -93,7 +94,7 @@ def main():
 
 
 """ ****** MODIFY UNDER HERE ****** """
-path = 'C:/manu/postproc tracks'
+path = 'C:/manu/test'
 min_still = 0.01
 
 """ ****** LAUNCH PROGRAM ****** """

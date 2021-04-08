@@ -26,7 +26,7 @@ def main():
         for track in still_points:
             for n, p in track.groupby('object'):
                 ax.plot3D(p['X'], p['Y'], p['Z'], label=n)
-                ax.legend()
+                # ax.legend()
         
         # plot
         plt.show()
@@ -53,6 +53,7 @@ def main():
                 folder = root.split(os.path.sep)[-1]
                 still_points = []
                 time_exp = 0
+                print(f'Analyzing {folder}')
                 
                 # create dataframe with all tracks, reformat and grouped dataframe
                 base_df = pd.read_csv(os.path.join(root, name), sep=';')
@@ -70,8 +71,9 @@ def main():
                     x_move = track_data['X'].max() - track_data['X'].min()
                     y_move = track_data['Y'].max() - track_data['Y'].min()
                     z_move = track_data['Z'].max() - track_data['Z'].min()
-                    all_dist.append(max(x_move, y_move, z_move))
-                    still = 'yes' if all(p < min_still for p in [x_move, y_move, z_move]) else 'no'
+                    max_move = max(x_move, y_move, z_move)
+                    all_dist.append(max_move)
+                    still = 'yes' if max_move <= min_still else 'no'
                     
                     # append to the still points list
                     if still == 'yes':
@@ -109,7 +111,7 @@ def main():
 
 
 """ ====== MODIFY UNDER HERE ====== """
-path = 'C:/manu/test'
+path = 'C:/manu/postproc tracks'
 min_still = 0.01
 
 """ ====== LAUNCH PROGRAM ====== """

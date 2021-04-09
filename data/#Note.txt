@@ -47,3 +47,11 @@ ________________________________________________________________________________
     + legenda (done)
 
 * Pandas Implementation
+    + tracks analysis
+        - cartella analisi [PyAnalysis{box_name} | figures | original csv | general info | mini tracks | file per plot]
+        - caricare e pulire file
+        - informazioni generali sull'esperimento [folder|date]
+        - analisi tracce generali [] (?)
+        - analisi mini-tracce in box []
+        - creare file per plot
+        - esportare

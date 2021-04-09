@@ -1,4 +1,6 @@
-- max and min values
+=== General Info ===
+
+* Max and min values
     X max: 0.98
     X min: -0.085
     Y max: 1.61
@@ -6,12 +8,12 @@
     Z max: 1.194
     Z min: -0.02
 
-- points under Z -0.02
+* Points under Z -0.02
     under:      68,633
     all points: 7,647,350
     percentage: 0.8975%
 
-- analysis structure
+* Analysis Structure
     experiments = [{'folder':'C:\\...',
                    'csv':'C:\\...',
                    'date':'2020_...',
@@ -21,26 +23,27 @@
                    'mini-tracks':[[1,2,3,...],[1,2,3,...],[1,2,3,...]],
                    },
                    {...}]
+________________________________________________________________________________________________________________________
+== To Do List ==
 
-- heatmap:
-    spostare lo 0 nell'angolo per final map x paper
-    spiegare tutti filtri usati x atterraggio, x eliminare zanzare cazzute
-    fare il loop per fare tutte le analisi di notte, salvando le immagini
+* Varie
+    + creare documentazione per programma
+    + filtro landed or still prima della minitraccia
+    + var_graph per traccia singola
+    + filtro zanzare ferme in analisi generali
+    + filtro zanzare che si muovono meno di 1 cm3 (?)
 
-- filtro zanzare ferme in analisi generali
-- filtro zanzare che si muovono meno di 1 cm3 (?)
+* Heatmap
+    + spostare lo 0 nell'angolo per final map x paper
+    + spiegare tutti filtri usati per atterraggio e per eliminare zanzare cazzute
+    + fare il loop per fare tutte le analisi di notte, salvando le immagini (done)
 
-- da fare
-    creare documentazione per programma
-    filtro landed or still prima della minitraccia
--   var_graph per traccia singola
+* 3D Plot
+    + disegnare rettangolo 3D nel grafico (done)
+    + label assi (done)
+    + tracce di colore diverso (done)
+    + scala fissa (done)
+    + controllare zoom (done)
+    + legenda (done)
 
-- tracce 3D
-    disegnare rettangolo 3D nel grafico
-    label assi
-    tracce di colore diverso
-    scala fissa
-    controllare zoom
-    legenda
-
-- pandas implementation
+* Pandas Implementation

@@ -123,7 +123,7 @@ box_vertical2 = (0.44, 0.95), (1.13, 1.38), (-0.02, 0.6)
 # boxes used
 box_in = box_large1
 box_out = box_fake
-box_name = 'large1'  # name of the file created after the analysis
+box_name = 'test'  # name of the file created after the analysis
 
 # path
 path = 'C:/manu/test'

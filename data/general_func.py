@@ -8,6 +8,8 @@ import json
 from time import perf_counter
 from math import sqrt, acos, pi
 
+""" === Functions ==="""
+
 
 # return a list of tracks in a given .csv file, clean useless data and return a report of the tracks included
 def get_tracks(file):
@@ -407,6 +409,9 @@ def progress(p, tot_sz, start):
     
     # return
     return p
+
+
+""" === Main Analysis ==="""
 
 
 # main box analysis

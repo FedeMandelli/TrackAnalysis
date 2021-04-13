@@ -28,7 +28,6 @@ ________________________________________________________________________________
 
 * Varie
     + creare documentazione per programma
-    + filtro landed or still prima della minitraccia
     + var_graph per traccia singola
     + filtro zanzare ferme in analisi generali
     + filtro zanzare che si muovono meno di 1 cm3 (?)
@@ -38,20 +37,10 @@ ________________________________________________________________________________
     + spiegare tutti filtri usati per atterraggio e per eliminare zanzare cazzute
     + fare il loop per fare tutte le analisi di notte, salvando le immagini (done)
 
-* 3D Plot
-    + disegnare rettangolo 3D nel grafico (done)
-    + label assi (done)
-    + tracce di colore diverso (done)
-    + scala fissa (done)
-    + controllare zoom (done)
-    + legenda (done)
-
 * Pandas Implementation
-    + tracks analysis
-        - cartella analisi [PyAnalysis{box_name} | figures | original csv | general info | mini tracks | file per plot]
-        - caricare e pulire file
-        - informazioni generali sull'esperimento [folder|date]
-        - analisi tracce generali [] (?)
-        - analisi mini-tracce in box []
-        - creare file per plot
-        - esportare
+    + general analysis
+        - analisi tracce generali (?)
+        - creare sheet per plot
+    + track analysis
+        - still or landed
+    + reacap generale esperimenti

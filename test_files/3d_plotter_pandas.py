@@ -1,8 +1,8 @@
 """ 3D PLOTTER """
 
 # imports
-import json
-import numpy as np
+import pandas as pd
+from numpy import array
 from itertools import product
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -11,55 +11,50 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 # plot tracks in 3D
 def plot_3d(an_tp):
-    # starting settings
-    info = json.load(open(file))
+    # load dataframe
+    df = pd.read_excel(file, sheet_name='3D_data')
     
-    # select the list to plot
-    if 'all' in an_tp:
-        tracks = info['tracks']
-    else:
-        if 'landed' in an_tp:
-            tracks = info['landed']
-        elif 'not landed' in an_tp:
-            tracks = info['not landed']
-        elif 'minitracks' in an_tp:
-            tracks = info['mini-tracks']
-        else:
-            tracks = []
-            for track in info['tracks']:
-                if track[0]['object'] in an_tp:
-                    tracks.append(track)
+    """ === Tracks to Plot === """
+    # type of track
+    if 'tracks' in an_tp:
+        df = df[(df['type'] == 'track')]
+    if 'minitracks' in an_tp:
+        df = df[(df['type'] == 'minitrack')]
+    if 'landed' in an_tp:
+        df = df[(df['landed'] == 'yes')]
+    if 'not landed' in an_tp:
+        df = df[(df['landed'] == 'no')]
     
-    # plot
+    # track number if required
+    nums = []
+    for i in an_tp:
+        if isinstance(i, int):
+            nums.append(i)
+    if nums:
+        df = df[(df['object'].isin(nums))]
+    
+    """ === Plot === """
+    # basic settings
     fig = plt.figure()
     ax = Axes3D(fig, auto_add_to_figure=False)
     fig.add_axes(ax)
     
-    # get points and create tracks
-    for track in tracks:
-        x = []
-        y = []
-        z = []
-        point = 0
-        for point in track:
-            x.append(point['X'])
-            y.append(point['Y'])
-            z.append(point['Z'])
-        ax.plot3D(x, y, z, label=point['object'])
-        ax.text(point['X'], point['Y'], point['Z'], point['object'])
+    # create tracks
+    for n_track, track_data in df.groupby('object'):
+        ax.plot3D(track_data['X'], track_data['Y'], track_data['Z'], label=n_track)
+        ax.text(track_data.iloc[-1]['X'], track_data.iloc[-1]['Y'], track_data.iloc[-1]['Z'], n_track)
     
     # create boxes areas
     if boxes:
         for box in boxes:
-            p = np.array(list(product(box[0], box[1], box[2])))
-            rectangle = [[p[0], p[2], p[6], p[4]],
-                         [p[1], p[3], p[7], p[5]],
-                         [p[0], p[2], p[3], p[1]],
-                         [p[4], p[5], p[7], p[6]],
-                         [p[0], p[1], p[5], p[4]],
-                         [p[2], p[3], p[7], p[6]]]
-            ax.add_collection3d(
-                    Poly3DCollection(rectangle, facecolors='cyan', linewidths=0.1, edgecolors='cyan', alpha=0.05))
+            p = array(list(product(box[0], box[1], box[2])))
+            rect = [[p[0], p[2], p[6], p[4]],
+                    [p[1], p[3], p[7], p[5]],
+                    [p[0], p[2], p[3], p[1]],
+                    [p[4], p[5], p[7], p[6]],
+                    [p[0], p[1], p[5], p[4]],
+                    [p[2], p[3], p[7], p[6]]]
+            ax.add_collection3d(Poly3DCollection(rect, facecolors='cyan', linewidths=.1, edgecolors='cyan', alpha=.05))
     
     # plot settings
     ax.set_xlim3d(x_start, x_end)
@@ -86,13 +81,13 @@ def plot_3d(an_tp):
     * if necessary, adjust the area of the wind tunnel """
 
 # main settings
-to_analyze = [237]  # all - minitracks - landed - not landed - n.track
+to_analyze = ['tracks']  # (tracks - minitracks) - (landed - not landed) - n.track
 file = 'C:/manu/test/test_pandas_analysis.xlsx'
 
 # boxes
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
 box_large2 = (0.44, 0.95), (0.83, 1.45), (-0.02, 0.2)
-boxes = []
+boxes = [box_large1]
 
 # XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 size = 0.1

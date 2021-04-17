@@ -295,6 +295,7 @@ def box_analysis(tracks, exp_info, box_in, box_out):
     """ === Track Analysis === """
     for track in tracks:
         track['type'] = 'track'
+        track['landed'] = 'no'
         # check if in passes in the desired area
         for track_i, point_data in track.iterrows():
             box_pass_point = 'yes' if check_box(box_in, point_data) and not check_box(box_out, point_data) else 'no'
@@ -316,6 +317,7 @@ def box_analysis(tracks, exp_info, box_in, box_out):
         land_info, still_info = land_still(track)
         if land_info:
             if check_box(box_in, land_info):
+                track['landed'] = 'yes'
                 mini_land = f'x{land_info["X"]}, y{land_info["Y"]}, z{land_info["Z"]}, {land_info["count"]}p'
                 track_info['landing'] = mini_land
                 if general_info['landed'] != '':

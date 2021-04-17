@@ -38,4 +38,5 @@ ________________________________________________________________________________
     + fare il loop per fare tutte le analisi di notte, salvando le immagini (done)
 
 * Pandas Implementation
+    + column landed in plot3d info
     + track analysis

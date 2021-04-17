@@ -38,9 +38,4 @@ ________________________________________________________________________________
     + fare il loop per fare tutte le analisi di notte, salvando le immagini (done)
 
 * Pandas Implementation
-    + general analysis
-        - analisi tracce generali (?)
-        - creare sheet per plot
     + track analysis
-        - still or landed
-    + reacap generale esperimenti

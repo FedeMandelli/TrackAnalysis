@@ -87,7 +87,7 @@ def plot_3d(an_tp):
 
 # main settings
 to_analyze = [237]  # all - minitracks - landed - not landed - n.track
-file = "C:/manu/test/2020_07_28_16_29_06 - exp 20 big vs big/Py_Analysis_test_normal/2020_07_28_16_29_06_land_or_not.json"
+file = 'C:/manu/test/test_pandas_analysis.xlsx'
 
 # boxes
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)

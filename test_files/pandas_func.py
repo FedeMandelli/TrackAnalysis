@@ -207,6 +207,46 @@ def ang_vel(tr):
     return avg_ang_vel
 
 
+def land_still(tr):
+    """ check if in any point of the given track, the mosquito is landed or is still """
+    
+    # counting settings
+    counting = False
+    count = 0
+    tol = 0.002
+    landed = {}
+    still = []
+    
+    # difference between two points
+    for i in range(1, len(tr)):
+        first_p = tr.iloc[i - 1]
+        last_p = tr.iloc[i]
+        
+        # check if next point is in tolerance
+        if first_p['X'] - tol <= last_p['X'] <= first_p['X'] + tol \
+                and first_p['Y'] - tol <= last_p['Y'] <= first_p['Y'] + tol \
+                and first_p['Z'] - tol <= last_p['Z'] <= first_p['Z'] + tol:
+            counting = True
+        else:
+            counting = False
+        
+        # manage counting
+        if counting:
+            count += 1
+        else:
+            # still in the middle of the track
+            if count >= 5:
+                still.append({'X': tr.iloc[i]["X"], 'Y': tr.iloc[i]["Y"], 'Z': tr.iloc[i]["Z"], 'count': count})
+            count = 0
+    
+    # landed at the end of the track
+    if counting and count >= 5:
+        landed = {'X': tr.iloc[-1]["X"], 'Y': tr.iloc[-1]["Y"], 'Z': tr.iloc[-1]["Z"], 'count': count}
+    
+    # return info
+    return landed, still
+
+
 def to_excel(df, sheet_name, writer):
     """ export a pandas dataframe in a table in a given excel sheet """
     
@@ -226,9 +266,10 @@ def to_excel(df, sheet_name, writer):
         column_len = max(df[col].astype(str).str.len().max(), len(col) + 2)
         worksheet.set_column(i, i, column_len)
     
-    # hide sheet for plot3D
-    if sheet_name == '':
-        worksheet.hide()
+    # create hidden sheet for plot3D
+    if sheet_name == 'Points':
+        df.to_excel(writer, sheet_name='3D_data', index=False)
+        writer.sheets['3D_data'].hide()
     
     return
 
@@ -244,13 +285,16 @@ def box_analysis(tracks, exp_info, box_in, box_out):
     # create dataframes and general information dictionary
     tracks_df = pd.DataFrame()
     minitracks_df = pd.DataFrame()
+    minitracks = []
     general_info = {'mini tracks': 0,
                     'unique tracks': 0,
                     'tot time': 0,
-                    'tot dist': 0}
+                    'tot dist': 0,
+                    'landed': ''}
     
     """ === Track Analysis === """
     for track in tracks:
+        track['type'] = 'track'
         # check if in passes in the desired area
         for track_i, point_data in track.iterrows():
             box_pass_point = 'yes' if check_box(box_in, point_data) and not check_box(box_out, point_data) else 'no'
@@ -264,13 +308,33 @@ def box_analysis(tracks, exp_info, box_in, box_out):
                       'n. track': track.iloc[0]['object'],
                       'points': points,
                       'tot time': tot_time,
-                      'in box': box_pass}
+                      'in box': box_pass,
+                      'landing': '',
+                      'still': ''}
         
-        # landing
+        # land or still
+        land_info, still_info = land_still(track)
+        if land_info:
+            if check_box(box_in, land_info):
+                mini_land = f'x{land_info["X"]}, y{land_info["Y"]}, z{land_info["Z"]}, {land_info["count"]}p'
+                track_info['landing'] = mini_land
+                if general_info['landed'] != '':
+                    gil = ', '.join([general_info['landed'], str(track.iloc[0]['object'])])
+                else:
+                    gil = str(track.iloc[0]['object'])
+                general_info['landed'] = gil
+        if still_info:
+            still_list = []
+            for p in still_info:
+                if check_box(box_in, p):
+                    still_list.append(f'x{p["X"]}, y{p["Y"]}, z{p["Z"]}, {p["count"]}p')
+            mini_still = ' - '.join(still_list)
+            track_info['still'] = mini_still
         
         """ === Mini Tracks Analysis === """
         if box_pass == 'yes':
             general_info['unique tracks'] += 1
+            
             # group points in box creating mini-tracks
             in_box_df = track[track['in_box'] == 'yes'].groupby((track['in_box'] != 'yes').cumsum())
             n_minitracks = len(in_box_df)
@@ -280,6 +344,8 @@ def box_analysis(tracks, exp_info, box_in, box_out):
             count = 0
             for mini_i, minitrack_data in in_box_df:
                 general_info['mini tracks'] += 1
+                minitrack_data['type'] = 'minitrack'
+                minitracks.append(minitrack_data)
                 # general information
                 count += 1
                 minitrack_info = {'n. track': minitrack_data.iloc[0]['object'],
@@ -354,6 +420,10 @@ def box_analysis(tracks, exp_info, box_in, box_out):
                     mean_ang_vel = ang_vel(minitrack_data)
                     minitrack_info['angular velocity'] = mean_ang_vel
                 
+                # landing or still information
+                minitrack_info['landing'] = track_info['landing']
+                minitrack_info['still'] = track_info['still']
+                
                 # combine minitracks information
                 minitracks_df = minitracks_df.append([minitrack_info], ignore_index=True)
         
@@ -361,11 +431,16 @@ def box_analysis(tracks, exp_info, box_in, box_out):
         tracks_df = tracks_df.append([track_info], ignore_index=True)
     
     """ === Plot 3D Data === """
+    points_df = pd.concat(tracks + minitracks, ignore_index=True)
     
     """ === Experiment Information and Return === """
     # update experiment info
     for i in general_info:
         exp_info[i] = general_info[i]
-
+    
+    # move number of tracks removed to the end
+    tracks_removed = exp_info.pop('tracks removed (n.)')
+    exp_info.insert(len(exp_info.columns), 'tracks removed (n.)', tracks_removed)
+    
     # return
-    return tracks_df, minitracks_df, exp_info
+    return tracks_df, minitracks_df, exp_info, points_df

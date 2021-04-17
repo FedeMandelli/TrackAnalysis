@@ -28,15 +28,14 @@ ________________________________________________________________________________
 
 * Varie
     + creare documentazione per programma
-    + var_graph per traccia singola
-    + filtro zanzare ferme in analisi generali
-    + filtro zanzare che si muovono meno di 1 cm3 (?)
 
 * Heatmap
     + spostare lo 0 nell'angolo per final map x paper
     + spiegare tutti filtri usati per atterraggio e per eliminare zanzare cazzute
-    + fare il loop per fare tutte le analisi di notte, salvando le immagini (done)
+
+* Track Analysis
+    + main track analysis (?)
 
 * Pandas Implementation
-    + column landed in plot3d info
-    + track analysis
+    + var graph single and all
+    + heatmap single and all

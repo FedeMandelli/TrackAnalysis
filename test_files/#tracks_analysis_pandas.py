@@ -21,7 +21,7 @@ def main():
                 """ === Basic Experiment Information === """
                 # get experiment name
                 exp_name = os.path.split(root)[-1]
-                
+                print(exp_name, end='')
                 # create analysis folder
                 analysis_folder = os.path.join(root, f'Py_Analysis_{box_name}')
                 if not os.path.exists(analysis_folder):
@@ -66,7 +66,9 @@ def main():
                 exp_tracks.append(tracks_df)
                 exp_minitracks.append(minitracks_df)
                 exp_points.append(points)
+                print(' *** done ***')
     
+    print('exporting analysis', end='')
     """ === General Info Export === """
     # create file and writer
     file_name = f'{box_name}_analysis.xlsx'
@@ -82,6 +84,7 @@ def main():
     
     # close excel file
     exc_w.save()
+    print(' *** done ***')
 
 
 """ ====== MODIFY UNDER HERE ====== """
@@ -115,7 +118,7 @@ box_vertical2 = (0.44, 0.95), (1.13, 1.38), (-0.02, 0.6)
 # boxes used
 box_in = box_large1
 box_out = box_fake
-box_name = 'test_pandas_new'  # name of the file created after the analysis
+box_name = 'test_pandas'  # name of the file created after the analysis
 
 # path
 path = 'C:/manu/test'

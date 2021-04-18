@@ -3,6 +3,7 @@
 # imports
 import pandas as pd
 from math import sqrt, acos, pi
+from time import perf_counter
 
 """ === Functions === """
 
@@ -296,10 +297,22 @@ def box_analysis(tracks, exp_info, box_in, box_out):
     for track in tracks:
         track['type'] = 'track'
         track['landed'] = 'no'
+        
         # check if in passes in the desired area
-        for track_i, point_data in track.iterrows():
-            box_pass_point = 'yes' if check_box(box_in, point_data) and not check_box(box_out, point_data) else 'no'
-            track.loc[track_i, 'in_box'] = box_pass_point
+        x_min_in, x_max_in = box_in[0]
+        y_min_in, y_max_in = box_in[1]
+        z_min_in, z_max_in = box_in[2]
+        x_min_out, x_max_out = box_out[0]
+        y_min_out, y_max_out = box_out[1]
+        z_min_out, z_max_out = box_out[2]
+        
+        track['in_box'] = 'no'
+        track.loc[((track['X'] >= x_min_in) & (track['X'] <= x_max_in)
+                   & (track['Y'] >= y_min_in) & (track['Y'] <= y_max_in)
+                   & (track['Z'] >= z_min_in) & (track['Z'] <= z_max_in))
+                  & ~((track['X'] >= x_min_out) & (track['X'] <= x_max_out)
+                      & (track['Y'] >= y_min_out) & (track['Y'] <= y_max_out)
+                      & (track['Z'] >= z_min_out) & (track['Z'] <= z_max_out)), 'in_box'] = 'yes'
         
         # track information
         box_pass = 'yes' if 'yes' in track['in_box'].values else 'no'

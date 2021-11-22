@@ -62,7 +62,7 @@ def main():
         # create json for landed and not landed tracks
         func.land_not(exp)
         
-        # store data for merged json json
+        # store data for merged json
         with open(exp['json']) as file:
             new_data = json.load(file)
             for track in new_data['mini-tracks']:
@@ -108,12 +108,14 @@ def main():
 box_fake = (0, 0), (0, 0), (-1, -1)
 box_test = (-0.5, 0.100), (0.6, 1), (0.3, 0.6)
 box_all = (-2, 2), (-2, 2), (-2, 2)
+
 # exp1
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
 box_large2 = (0.44, 0.95), (0.83, 1.45), (-0.02, 0.2)
 box_small1 = (-0.04, 0.32), (1.01, 1.45), (-0.02, 0.2)
 box_small2 = (0.53, 0.90), (1.01, 1.45), (-0.02, 0.2)
 box_onlytrap1 = (0.04, 0.34), (0.93, 1.35), (-0.02, 0.2)
+
 # exp2
 box_horiz1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
 box_horiz2 = (0.44, 0.95), (0.83, 1.45), (-0.02, 0.2)
@@ -121,9 +123,9 @@ box_vertical1 = (-0.04, 0.44), (1.13, 1.38), (-0.02, 0.6)
 box_vertical2 = (0.44, 0.95), (1.13, 1.38), (-0.02, 0.6)
 
 # boxes used
-box_in = box_large1
+box_in = box_horiz2
 box_out = box_fake
-box_name = 'test_normal'  # name of the file created after the analysis
+box_name = 'box_horiz2'  # name of the file created after the analysis
 
 # path
 path = 'C:/manu/test'

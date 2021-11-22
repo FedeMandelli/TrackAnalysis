@@ -3,8 +3,10 @@
 # imports
 import csv
 import os
-import matplotlib.pyplot as plt
+import sys
 import json
+import matplotlib.pyplot as plt
+from statistics import mean
 from time import perf_counter
 from math import sqrt, acos, pi
 
@@ -405,7 +407,9 @@ def progress(p, tot_sz, start):
     
     # calc percentage and print
     perc = f"{(p / tot_sz * 100):.2f}%"
-    print(f'{perc} - {p}\\{tot_sz} - time to end: {time_left}')
+    sys.stdout.write(f'\r{perc} - {p}\\{tot_sz} - time to end: {time_left}')
+    sys.stdout.flush()
+    # print(f'{perc} - {p}\\{tot_sz} - time to end: {time_left}')
     
     # return
     return p
@@ -498,19 +502,19 @@ def box_analysis(exp, box_in, box_out):
                     try:
                         track_info['3D tortuosity'] = format_fl(abs(distance_lin / distance_tot))
                     except ZeroDivisionError:
-                        pass
+                        track_info['3D tortuosity'] = 0
                     try:
                         track_info['X tortuosity'] = format_fl(abs(axis_dist['Xlin'] / axis_dist['Xtot']))
                     except ZeroDivisionError:
-                        pass
+                        track_info['X tortuosity'] = 0
                     try:
                         track_info['Y tortuosity'] = format_fl(abs(axis_dist['Ylin'] / axis_dist['Ytot']))
                     except ZeroDivisionError:
-                        pass
+                        track_info['Y tortuosity'] = 0
                     try:
                         track_info['Z tortuosity'] = format_fl(abs(axis_dist['Zlin'] / axis_dist['Ztot']))
                     except ZeroDivisionError:
-                        pass
+                        track_info['Z tortuosity'] = 0
                     
                     exp['general info']['total distance (mt)'] += distance_tot
                     
@@ -567,7 +571,37 @@ def box_analysis(exp, box_in, box_out):
     exp['general info']['total distance (mt)'] = format_fl(exp['general info']['total distance (mt)'])
     exp['general info']['landed'] = ', '.join(str(i) for i in exp['general info']['landed'])
     
+    # additional recap info
+    exp_filtered = [i for i in exp['analysis'] if i['n. points'] > 2]
+    
+    tort_3d = [i['3D tortuosity'] for i in exp_filtered if i['3D tortuosity'] != 0]
+    exp['general info']['3D tortuosity'] = round(mean(tort_3d), 3)
+    
+    tort_x = [i['X tortuosity'] for i in exp_filtered if i['X tortuosity'] != 0]
+    exp['general info']['X tortuosity'] = round(mean(tort_x), 3)
+    
+    tort_y = [i['Y tortuosity'] for i in exp_filtered if i['Y tortuosity'] != 0]
+    exp['general info']['Y tortuosity'] = round(mean(tort_y), 3)
+    
+    tort_z = [i['Z tortuosity'] for i in exp_filtered if i['Z tortuosity'] != 0]
+    exp['general info']['Z tortuosity'] = round(mean(tort_z), 3)
+    
+    speed_tot = [i['flight speed (m/s)'] for i in exp_filtered if i['flight speed (m/s)'] != 0]
+    exp['general info']['flight speed (m/s)'] = round(mean(speed_tot), 3)
+    
+    speed_x = [i['X flight speed (m/s)'] for i in exp_filtered if i['X flight speed (m/s)'] != 0]
+    exp['general info']['X flight speed (m/s)'] = round(mean(speed_x), 3)
+    
+    speed_y = [i['Y flight speed (m/s)'] for i in exp_filtered if i['Y flight speed (m/s)'] != 0]
+    exp['general info']['Y flight speed (m/s)'] = round(mean(speed_y), 3)
+    
+    speed_z = [i['Z flight speed (m/s)'] for i in exp_filtered if i['Z flight speed (m/s)'] != 0]
+    exp['general info']['Z flight speed (m/s)'] = round(mean(speed_z), 3)
+    
+    ang_vel_avg = [i['angular velocity'] for i in exp_filtered if i['angular velocity'] != 0]
+    exp['general info']['angular velocity'] = round(mean(ang_vel_avg), 3)
+    
     # plot minitracks
     # plot_3d(exp['mini-tracks'])
     
-    return
+    return exp

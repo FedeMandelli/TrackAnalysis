@@ -600,7 +600,10 @@ def box_analysis(exp, box_in, box_out):
     
     ang_vel_avg = [i['angular velocity'] for i in exp_filtered if i['angular velocity'] != 0]
     exp['general info']['angular velocity'] = round(mean(ang_vel_avg), 3)
-    
+
+    acc_avg = [i['acceleration (m/s2)'] for i in exp_filtered if i['acceleration (m/s2)'] != 0]
+    exp['general info']['acceleration (m/s2)'] = round(mean(acc_avg), 3)
+
     # plot minitracks
     # plot_3d(exp['mini-tracks'])
     

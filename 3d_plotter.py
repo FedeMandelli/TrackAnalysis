@@ -62,6 +62,7 @@ def plot_3d(an_tp):
                     Poly3DCollection(rectangle, facecolors='cyan', linewidths=0.1, edgecolors='cyan', alpha=0.05))
     
     # plot settings
+    ax.set_box_aspect((1, 1, 1))
     ax.set_xlim3d(x_start, x_end)
     ax.set_ylim3d(y_start, y_end)
     ax.set_zlim3d(z_start, z_end)
@@ -86,13 +87,14 @@ def plot_3d(an_tp):
     * if necessary, adjust the area of the wind tunnel """
 
 # main settings
-to_analyze = [237]  # all - minitracks - landed - not landed - n.track
-file = "C:/manu/test/2020_07_28_16_29_06 - exp 20 big vs big/Py_Analysis_test_normal/2020_07_28_16_29_06_land_or_not.json"
+to_analyze = [1]  # all - minitracks - landed - not landed - n.track
+file = r"C:\manu\test\2020_07_27_15_10_09 -exp 14 big vs big\Py_Analysis_box_horiz2\2020_07_27_15_10_09_land_or_not.json"
 
 # boxes
 box_large1 = (-0.04, 0.44), (0.83, 1.45), (-0.02, 0.2)
 box_large2 = (0.44, 0.95), (0.83, 1.45), (-0.02, 0.2)
-boxes = []
+box_nulla = (0.25, 0.75), (-0.02, 0.6), (-0.02, 0.2)
+boxes = [box_large1, box_nulla]
 
 # XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
 size = 0.1

@@ -162,7 +162,7 @@ def main():
                 prog = func.progress(prog, tot_squares, start_time)
         
         # generate heatmap and save plot
-        print(f'creating {analysis} heatmap')
+        print(f' - creating {analysis} heatmap')
         heatmap_all(xy_values, yz_values, xz_values, analysis, text_labels, size, x_size, x_start, x_end, y_size,
                     y_start, y_end, z_size, z_start, z_end, path)
     
@@ -180,8 +180,8 @@ def main():
 
 # main settings
 analysis_type = ['count', 'tortuosity', 'tot_time', 'avg_time', 'velocity', 'acceleration', 'ang_vel']
-size = 0.1
-text_labels = True  # insert text labels in squares (True, False)
+size = 0.02
+text_labels = False  # insert text labels in squares (True, False)
 path = 'C:/manu/test'
 
 # XYZ settings - default: S(0.1) X(-0.1, 1) Y(-0.3, 1.7) Z(-0.1, 1.2)
